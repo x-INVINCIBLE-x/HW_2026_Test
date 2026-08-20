@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Doofus.Gameplay
 {
@@ -23,18 +24,12 @@ namespace Doofus.Gameplay
             Instance = this;
         }
 
-        private void Start()
-        {
-            StartGame();
-        }
-
         public void StartGame()
         {
             if (IsGameRunning)
                 return;
 
             IsGameRunning = true;
-            Debug.Log("Generta");
             GameStarted?.Invoke();
         }
 
@@ -45,6 +40,11 @@ namespace Doofus.Gameplay
 
             IsGameRunning = false;
             GameOver?.Invoke();
+        }
+
+        public void Restart()
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
