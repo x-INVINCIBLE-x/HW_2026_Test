@@ -3,7 +3,7 @@ using UnityEngine;
 using Doofus.Data;
 using Doofus.Input;
 
-namespace Doofus.Player
+namespace Doofus.Gameplay
 {
     // Handles grid-based player movement using input and player configuration.
     [RequireComponent(typeof(Transform))]

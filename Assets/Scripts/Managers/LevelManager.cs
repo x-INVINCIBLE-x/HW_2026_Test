@@ -1,8 +1,5 @@
 using Doofus.Gameplay;
-using Doofus.Player;
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Doofus.Manager
 {
