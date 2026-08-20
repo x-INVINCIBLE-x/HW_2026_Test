@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Doofus.Gameplay
 {
+    // Controls the lifetime and player interaction state of a platform.
     public class Platform : MonoBehaviour
     {
         public event Action<Platform> Expired;
@@ -14,6 +15,9 @@ namespace Doofus.Gameplay
 
         private bool hasPlayerEntered;
 
+        /// <summary>
+        /// Initializes the platform with its lifetime and resets its state.
+        /// </summary>
         public void Initialize(float lifetime)
         {
             Lifetime = lifetime;
@@ -32,6 +36,7 @@ namespace Doofus.Gameplay
             }
         }
 
+        // Detects when the player first enters the platform.
         private void OnCollisionEnter(Collision collision)
         {
             if (hasPlayerEntered)

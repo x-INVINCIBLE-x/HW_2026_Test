@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Doofus.Gameplay
 {
+    // Generates and manages a sequence of platforms using a small object pool.
     public class PlatformGenerator : MonoBehaviour
     {
         [Header("Platform")]
@@ -32,6 +33,9 @@ namespace Doofus.Gameplay
         public event Action<Platform> PlatformReached;
         public bool IsGenerating => isGenerating;
 
+        /// <summary>
+        /// Starts platform generation and returns the starting position.
+        /// </summary>
         public Vector3 StartGeneration()
         {
             if (isGenerating)
@@ -55,6 +59,9 @@ namespace Doofus.Gameplay
             return startPosition;
         }
 
+        /// <summary>
+        /// Stops the platform generation loop.
+        /// </summary>
         public void StopGeneration()
         {
             if (!isGenerating)
@@ -69,6 +76,7 @@ namespace Doofus.Gameplay
             isGenerating = false;
         }
 
+        // Creates the platform pool used during generation.
         private void InitializePool()
         {
             if (pool != null)
@@ -84,6 +92,7 @@ namespace Doofus.Gameplay
             }
         }
 
+        // Continuously spawns the next platform after the configured delay.
         private IEnumerator SpawnLoop()
         {
             while (isGenerating)
@@ -109,6 +118,7 @@ namespace Doofus.Gameplay
             }
         }
 
+        // Activates and initializes a platform at the specified position.
         private void Activate(Platform platform, Vector3 position)
         {
             platform.transform.position = position;

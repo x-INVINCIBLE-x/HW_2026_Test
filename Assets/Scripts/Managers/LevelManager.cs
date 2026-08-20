@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 namespace Doofus.Manager
 {
+    // Manages level setup and platform generation during the game lifecycle.
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private PlatformGenerator platformGenerator;
@@ -26,6 +27,7 @@ namespace Doofus.Manager
             }
         }
 
+        // Starts platform generation and spawns the player when the game starts.
         private void OnGameStarted()
         {
             Vector3 spawnPosition = platformGenerator.StartGeneration();
@@ -33,6 +35,7 @@ namespace Doofus.Manager
             Instantiate(playerPrefab, spawnPosition + Vector3.up, Quaternion.identity);
         }
 
+        // Stops platform generation when the game ends.
         private void OnGameOver()
         {
             platformGenerator.StopGeneration();

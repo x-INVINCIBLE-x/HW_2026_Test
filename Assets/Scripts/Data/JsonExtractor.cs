@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Doofus.Data
 {
+    // Loads and validates game configuration data from the Doofus Diary.
     public static class JsonExtractor
     {
         private const float DefaultMoveSpeed = 5f;
@@ -10,6 +11,9 @@ namespace Doofus.Data
         private const float DefaultMaxPulpitLifetime = 6f;
         private const float DefaultSpawnTime = 1.5f;
 
+        /// <summary>
+        /// Loads the Doofus Diary from Resources and falls back to default values if loading or validation fails.
+        /// </summary>
         public static bool TryLoad(string resourcePath, out DoofusDiaryData data)
         {
             TextAsset asset = Resources.Load<TextAsset>(resourcePath);
@@ -51,6 +55,7 @@ namespace Doofus.Data
             return true;
         }
 
+        // Validates the loaded configuration values.
         private static bool Validate(DoofusDiaryData d, out string reason)
         {
             if (d.player_data.speed <= 0f)
@@ -77,6 +82,7 @@ namespace Doofus.Data
             return true;
         }
 
+        // Creates default configuration values when the diary cannot be loaded.
         private static DoofusDiaryData BuildDefaults() => new DoofusDiaryData
         {
             player_data = new PlayerData { speed = DefaultMoveSpeed },

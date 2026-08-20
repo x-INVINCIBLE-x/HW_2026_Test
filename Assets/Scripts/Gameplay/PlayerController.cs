@@ -5,6 +5,7 @@ using Doofus.Input;
 
 namespace Doofus.Player
 {
+    // Handles grid-based player movement using input and player configuration.
     [RequireComponent(typeof(Transform))]
     public class PlayerController : MonoBehaviour
     {
@@ -39,6 +40,7 @@ namespace Doofus.Player
             StartCoroutine(Move(destination));
         }
 
+        // Converts analog input into a single grid movement direction.
         private Vector2Int GetDirection(Vector2 input)
         {
             if (input == Vector2.zero) return Vector2Int.zero;
@@ -49,6 +51,9 @@ namespace Doofus.Player
             return new Vector2Int(0, (int)Mathf.Sign(input.y));
         }
 
+        /// <summary>
+        /// Moves the player smoothly from its current position to the destination.
+        /// </summary>
         private IEnumerator Move(Vector3 destination)
         {
             IsMoving = true;

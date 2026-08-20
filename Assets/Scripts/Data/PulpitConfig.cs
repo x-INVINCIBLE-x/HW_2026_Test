@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Doofus.Data
 {
+    // Stores platform configuration data used at runtime.
     [CreateAssetMenu(fileName = "PulpitConfig", menuName = "Doofus/Platform Config")]
     public class PulpitConfig : ScriptableObject
     {
@@ -9,6 +10,9 @@ namespace Doofus.Data
         public float maxPulpitLifetime;
         public float pulpitSpawnTime;
 
+        /// <summary>
+        /// Populates the platform configuration from loaded platform data.
+        /// </summary>
         public void PopulateFrom(PulpitData data)
         {
             if (data == null)

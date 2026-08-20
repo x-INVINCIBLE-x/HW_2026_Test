@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Doofus.Gameplay
 {
+    // Follows the player and ends the game when the player enters the trigger.
     public class GameEndTrigger : MonoBehaviour
     {
         private PlayerController player;
@@ -22,6 +23,7 @@ namespace Doofus.Gameplay
             transform.position = new Vector3(playerPosition.x, transform.position.y, playerPosition.z);
         }
 
+        // Ends the game when the player enters the trigger.
         private void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent<PlayerController>(out _))

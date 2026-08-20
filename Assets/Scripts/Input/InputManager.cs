@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Doofus.Input
 {
+    // Manages player input and exposes the current movement input.
     public class InputManager : MonoBehaviour
     {
         public static InputManager Instance { get; private set; }
@@ -37,11 +38,13 @@ namespace Doofus.Input
             controls.Player.Disable();
         }
 
+        // Updates the movement input when the Move action is performed.
         private void OnMovePerformed(InputAction.CallbackContext ctx)
         {
             MoveInput = ctx.ReadValue<Vector2>();
         }
 
+        // Resets the movement input when the Move action is canceled.
         private void OnMoveCanceled(InputAction.CallbackContext ctx)
         {
             MoveInput = Vector2.zero;

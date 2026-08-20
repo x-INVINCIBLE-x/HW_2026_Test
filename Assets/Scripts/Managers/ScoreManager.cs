@@ -3,8 +3,8 @@ using System;
 using UnityEngine;
 
 namespace Doofus.Manager
-
 {
+    // Tracks the player's score based on the platforms they reach.
     public class ScoreManager : MonoBehaviour
     {
         public event Action<int> ScoreChanged;
@@ -24,12 +24,14 @@ namespace Doofus.Manager
                 platformGenerator.PlatformReached -= OnPlatformReached;
         }
 
+        // Increases the score when the player reaches a platform.
         private void OnPlatformReached(Platform platform)
         {
             Score++;
             ScoreChanged?.Invoke(Score);
         }
 
+        // Resets the score to zero and notifies listeners.
         public void ResetScore()
         {
             Score = 0;

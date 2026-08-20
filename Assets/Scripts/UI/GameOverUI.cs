@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Doofus.UI
 {
+    // Displays the game over panel when the game ends.
     public class GameOverUI : MonoBehaviour
     {
         [SerializeField] private GameObject gameOverPanel;
@@ -24,6 +25,7 @@ namespace Doofus.UI
             gameOverPanel.SetActive(false);
         }
 
+        // Shows the game over panel.
         private void Show()
         {
             gameOverPanel.SetActive(true);

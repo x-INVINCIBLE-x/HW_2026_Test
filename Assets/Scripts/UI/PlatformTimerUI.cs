@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Doofus.UI
 {
+    // Displays the remaining lifetime of the platform it is attached to.
     public class PlatformTimerUI : MonoBehaviour
     {
         [SerializeField] private Platform platform;
@@ -15,6 +16,7 @@ namespace Doofus.UI
                 platform = GetComponentInParent<Platform>();
         }
 
+        // Updates the displayed platform lifetime.
         private void Update()
         {
             if (platform == null || timerText == null)
