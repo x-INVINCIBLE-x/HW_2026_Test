@@ -6,51 +6,102 @@ namespace Doofus.Gameplay
 {
     public class PlatformGenerator : MonoBehaviour
     {
+        [Header("Platform")]
         [SerializeField] private Pulpit pulpitPrefab;
-        [SerializeField] private Transform startPoint;
         [SerializeField] private PulpitConfig config;
         [SerializeField] private float platformSize = 9f;
 
+        [Header("Start")]
+        [SerializeField] private Transform startPoint;
+
         private static readonly Vector3[] Directions =
         {
-            Vector3.forward, Vector3.back, Vector3.left, Vector3.right
+            Vector3.forward,
+            Vector3.back,
+            Vector3.left,
+            Vector3.right
         };
 
         private Pulpit[] pool;
         private int currentIndex;
+        private Coroutine spawnCoroutine;
 
-        private void Start()
+        private bool isGenerating;
+
+        public bool IsGenerating => isGenerating;
+
+        public Vector3 StartGeneration()
         {
-            pool = new Pulpit[2];
+            if (isGenerating)
+            {
+                Debug.LogWarning("[PlatformGenerator] Generation is already running.");
 
-            pool[0] = Instantiate(pulpitPrefab);
-            pool[1] = Instantiate(pulpitPrefab);
+                return GetStartPosition();
+            }
 
-            pool[1].gameObject.SetActive(false);
+            InitializePool();
+
+            Vector3 startPosition = GetStartPosition();
 
             currentIndex = 0;
 
-            Vector3 position = startPoint != null ? startPoint.position : transform.position;
+            Activate(pool[currentIndex], startPosition);
 
-            Activate(pool[0], position);
+            isGenerating = true;
+            spawnCoroutine = StartCoroutine(SpawnLoop());
 
-            StartCoroutine(SpawnLoop());
+            return startPosition;
+        }
+
+        public void StopGeneration()
+        {
+            if (!isGenerating)
+                return;
+
+            if (spawnCoroutine != null)
+            {
+                StopCoroutine(spawnCoroutine);
+                spawnCoroutine = null;
+            }
+
+            isGenerating = false;
+        }
+
+        private void InitializePool()
+        {
+            if (pool != null)
+                return;
+
+            pool = new Pulpit[2];
+
+            for (int i = 0; i < pool.Length; i++)
+            {
+                pool[i] = Instantiate(pulpitPrefab, transform);
+
+                pool[i].gameObject.SetActive(false);
+            }
         }
 
         private IEnumerator SpawnLoop()
         {
-            while (true)
+            while (isGenerating)
             {
-                Pulpit current = pool[currentIndex];
+                Pulpit currentPulpit = pool[currentIndex];
 
-                float lifetime = current.Lifetime;
+                float lifetime = currentPulpit.Lifetime;
+
                 float spawnDelay = Mathf.Min(config.pulpitSpawnTime, lifetime);
 
                 yield return new WaitForSeconds(spawnDelay);
 
+                if (!isGenerating)
+                    yield break;
+
                 int nextIndex = 1 - currentIndex;
 
-                Activate(pool[nextIndex], GetNextPosition(current.transform.position));
+                Vector3 nextPosition = GetNextPosition(currentPulpit.transform.position);
+
+                Activate(pool[nextIndex], nextPosition);
 
                 currentIndex = nextIndex;
             }
@@ -71,6 +122,11 @@ namespace Doofus.Gameplay
             Vector3 direction = Directions[Random.Range(0, Directions.Length)];
 
             return previousPosition + direction * platformSize;
+        }
+
+        private Vector3 GetStartPosition()
+        {
+            return startPoint != null ? startPoint.position : transform.position;
         }
     }
 }
