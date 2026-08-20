@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8284c219889811f4b862a15384d9b852, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: Assembly-CSharp::Doofus.Data.PlayerConfig
-  moveSpeed: 0
+  moveSpeed: 3
