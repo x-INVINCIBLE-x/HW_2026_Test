@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7769654861756902815}
   - component: {fileID: 2924808382426812833}
   - component: {fileID: 5755514219901774081}
+  - component: {fileID: -1226798048015695691}
   m_Layer: 0
   m_Name: Pulpit
   m_TagString: Untagged
@@ -112,3 +113,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1226798048015695691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742534124756837726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b6c3c9dc933564d9b39ee41563d548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Doofus.Gameplay.Pulpit

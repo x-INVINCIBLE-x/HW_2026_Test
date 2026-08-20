@@ -29,9 +29,13 @@ namespace Doofus.Player
             if (InputManager.Instance == null) return;
 
             Vector2Int direction = GetDirection(InputManager.Instance.MoveInput);
+
             if (direction == Vector2Int.zero) return;
 
-            Vector3 destination = targetPosition + new Vector3(direction.x, 0f, direction.y) * cellSize;
+            targetPosition += new Vector3(direction.x * cellSize, 0f, direction.y * cellSize);
+
+            Vector3 destination = new(targetPosition.x, transform.position.y, targetPosition.z);
+
             StartCoroutine(Move(destination));
         }
 
@@ -49,8 +53,7 @@ namespace Doofus.Player
         {
             IsMoving = true;
 
-            Vector3 start = targetPosition;
-            targetPosition = destination;
+            Vector3 start = transform.position;
 
             float moveSpeed = config != null ? config.moveSpeed : 1f;
             float duration = cellSize / moveSpeed;
@@ -60,11 +63,16 @@ namespace Doofus.Player
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                transform.position = Vector3.Lerp(start, destination, t);
+
+                Vector3 position = Vector3.Lerp(start, destination, t);
+                position.y = transform.position.y;
+                transform.position = position;
+
                 yield return null;
             }
 
-            transform.position = destination;
+            transform.position = new Vector3(destination.x, transform.position.y, destination.z);
+
             IsMoving = false;
         }
     }

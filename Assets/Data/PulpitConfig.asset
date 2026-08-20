@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a203414ad790d6d4cb9eafacf6f473fe, type: 3}
   m_Name: PulpitConfig
   m_EditorClassIdentifier: Assembly-CSharp::Doofus.Data.PulpitConfig
-  minPulpitLifetime: 0
-  maxPulpitLifetime: 0
-  pulpitSpawnTime: 0
+  minPulpitLifetime: 4
+  maxPulpitLifetime: 5
+  pulpitSpawnTime: 2.5
