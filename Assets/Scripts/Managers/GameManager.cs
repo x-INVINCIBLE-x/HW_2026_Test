@@ -3,7 +3,7 @@ using Doofus.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Doofus.Gameplay
+namespace Doofus.Manager
 {
     // Manages overall game lifecycle and states
     public class GameManager : MonoBehaviour

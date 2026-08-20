@@ -1,4 +1,5 @@
 using Doofus.Gameplay;
+using Doofus.Manager;
 using UnityEngine;
 
 namespace Doofus.UI
