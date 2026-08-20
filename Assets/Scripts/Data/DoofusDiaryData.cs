@@ -2,6 +2,7 @@ using System;
 
 namespace Doofus.Data
 {
+    // Contains all game configuration data loaded from the Doofus Diary.
     [Serializable]
     public class DoofusDiaryData
     {
@@ -9,12 +10,14 @@ namespace Doofus.Data
         public PulpitData pulpit_data;
     }
 
+    // Stores player configuration data.
     [Serializable]
     public class PlayerData
     {
         public float speed;
     }
 
+    // Stores pulpit configuration data.
     [Serializable]
     public class PulpitData
     {
