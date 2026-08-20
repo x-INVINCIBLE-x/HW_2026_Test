@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Doofus.Data
 {
-    [CreateAssetMenu(fileName = "PulpitConfig", menuName = "Doofus/Pulpit Config")]
+    [CreateAssetMenu(fileName = "PulpitConfig", menuName = "Doofus/Platform Config")]
     public class PulpitConfig : ScriptableObject
     {
         public float minPulpitLifetime;

@@ -1,13 +1,14 @@
+using Doofus.Data;
+using System;
 using System.Collections;
 using UnityEngine;
-using Doofus.Data;
 
 namespace Doofus.Gameplay
 {
     public class PlatformGenerator : MonoBehaviour
     {
         [Header("Platform")]
-        [SerializeField] private Pulpit pulpitPrefab;
+        [SerializeField] private Platform pulpitPrefab;
         [SerializeField] private PulpitConfig config;
         [SerializeField] private float platformSize = 9f;
 
@@ -22,12 +23,13 @@ namespace Doofus.Gameplay
             Vector3.right
         };
 
-        private Pulpit[] pool;
+        private Platform[] pool;
         private int currentIndex;
         private Coroutine spawnCoroutine;
 
         private bool isGenerating;
 
+        public event Action<Platform> PlatformReached;
         public bool IsGenerating => isGenerating;
 
         public Vector3 StartGeneration()
@@ -72,7 +74,7 @@ namespace Doofus.Gameplay
             if (pool != null)
                 return;
 
-            pool = new Pulpit[2];
+            pool = new Platform[2];
 
             for (int i = 0; i < pool.Length; i++)
             {
@@ -86,7 +88,7 @@ namespace Doofus.Gameplay
         {
             while (isGenerating)
             {
-                Pulpit currentPulpit = pool[currentIndex];
+                Platform currentPulpit = pool[currentIndex];
 
                 float lifetime = currentPulpit.Lifetime;
 
@@ -107,19 +109,30 @@ namespace Doofus.Gameplay
             }
         }
 
-        private void Activate(Pulpit pulpit, Vector3 position)
+        private void Activate(Platform platform, Vector3 position)
         {
-            pulpit.transform.position = position;
-            pulpit.gameObject.SetActive(true);
+            platform.transform.position = position;
 
-            float lifetime = Random.Range(config.minPulpitLifetime, config.maxPulpitLifetime);
+            float lifetime = UnityEngine.Random.Range(
+                config.minPulpitLifetime,
+                config.maxPulpitLifetime
+            );
 
-            pulpit.Initialize(lifetime);
+            platform.Initialize(lifetime);
+            platform.gameObject.SetActive(true);
+
+            platform.PlayerEntered -= OnPlatformPlayerEntered;
+            platform.PlayerEntered += OnPlatformPlayerEntered;
+        }
+
+        private void OnPlatformPlayerEntered(Platform platform)
+        {
+            PlatformReached?.Invoke(platform);
         }
 
         private Vector3 GetNextPosition(Vector3 previousPosition)
         {
-            Vector3 direction = Directions[Random.Range(0, Directions.Length)];
+            Vector3 direction = Directions[UnityEngine.Random.Range(0, Directions.Length)];
 
             return previousPosition + direction * platformSize;
         }
