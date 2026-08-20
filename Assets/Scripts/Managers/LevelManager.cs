@@ -9,9 +9,7 @@ namespace Doofus.Manager
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private PlatformGenerator platformGenerator;
-        [SerializeField] private PlayerController playerPrefab;
-
-        private PlayerController player;
+        [SerializeField] private GameObject playerPrefab;
 
         private void Start()
         {
@@ -32,7 +30,7 @@ namespace Doofus.Manager
         {
             Vector3 spawnPosition = platformGenerator.StartGeneration();
 
-            player = Instantiate(playerPrefab, spawnPosition + Vector3.up, Quaternion.identity);
+            Instantiate(playerPrefab, spawnPosition + Vector3.up, Quaternion.identity);
         }
 
         private void OnGameOver()
